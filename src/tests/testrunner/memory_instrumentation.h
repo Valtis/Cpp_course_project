@@ -4,4 +4,4 @@
 
 
 
-allocations &get_allocations_list();
+allocations *get_allocations_list();

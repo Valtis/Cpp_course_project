@@ -1,23 +1,21 @@
 #include "allocations.h"
 #include <iostream>
 
-
-void allocations::add_allocation(const void *  addr, const AllocationType type, const size_t bytes, const int line, const char* file) {
-
-  pointer_info info = { bytes, line, file };
+void allocations::add_allocation(void *  addr, const AllocationType type, const size_t bytes, const int line, const char* file) {
 
   switch (type) {
     case AllocationType::REGULAR:
-      m_array_allocations[addr] = info;
+      m_regular_allocations[addr] = bytes;
     break;
 
     case AllocationType::ARRAY:
-      m_array_allocations[addr] = info;
+      m_array_allocations[addr] = bytes;
     break;
   }
+
 }
 
-void allocations::remove_allocation(const void *  addr, const AllocationType type) {
+void allocations::remove_allocation(void *  addr, const AllocationType type) {
   switch (type) {
     case AllocationType::REGULAR:
       m_regular_allocations.erase(addr);
@@ -36,13 +34,11 @@ bool allocations::has_errors() {
 
 void allocations::print_errors() {
   for (auto pair : m_regular_allocations) {
-    std::cout << "Memory leak at address " << pair.first << " allocated in file " << pair.second.file << " at line "
-    << pair.second.line << ". " << pair.second.bytes << " bytes lost\n";
+    std::cout << "Memory leak at address " << pair.first << ". " << pair.second << " bytes lost\n";
   }
 
   for (auto pair : m_array_allocations) {
-    std::cout << "Array memory leak at address " << pair.first << " allocated in file " << pair.second.file
-     << " at line " << pair.second.line << ". " << pair.second.bytes << " bytes lost\n";
+    std::cout << "Array memory leak at address " << pair.first << ". " << pair.second << " bytes lost\n";
   }
 }
 

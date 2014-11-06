@@ -1,6 +1,7 @@
 #pragma once
 
 #include <map>
+#include "custom_allocator.h"
 
 enum class AllocationType : int { REGULAR, ARRAY } ;
 
@@ -24,6 +25,6 @@ private:
   };
 
   // two maps so we can differentiate between new, new[], delete and delete[]
-  std::map<const void *, pointer_info> m_regular_allocations;
-  std::map<const void *, pointer_info> m_array_allocations;
+  std::map<const void *, pointer_info, std::less<const void *>, custom_allocator<std::pair<const void *, pointer_info>>> m_regular_allocations;
+  std::map<const void *, pointer_info, std::less<const void *>, custom_allocator<std::pair<const void *, pointer_info>>> m_array_allocations;
 };

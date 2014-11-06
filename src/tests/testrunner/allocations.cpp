@@ -8,7 +8,7 @@ void allocations::add_allocation(const void *  addr, const AllocationType type, 
 
   switch (type) {
     case AllocationType::REGULAR:
-    //  m_array_allocations[addr] = info;
+      m_array_allocations[addr] = info;
     break;
 
     case AllocationType::ARRAY:

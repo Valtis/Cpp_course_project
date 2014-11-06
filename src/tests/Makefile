@@ -1,6 +1,6 @@
 CXX = g++
 
-CXXFLAGS = -g -Wall -Wextra -Werror -fmessage-length=0 -std=c++11
+CXXFLAGS = -g -Wall -Werror -fmessage-length=0 -std=c++11
 
 CPP_FILES = $(wildcard *.cpp) $(wildcard testrunner/*.cpp)
 

@@ -27,6 +27,7 @@ void string_non_equality_operator_returns_false_with_string();
 
 void string_concatenation_works_with_c_string();
 void string_concatenation_works_with_string();
+void string_length_is_correct_after_concatenation();
 
 void string_sum_assignment_operator_works_with_c_string();
 void string_sum_assignment_operator_works_with_string();
@@ -35,4 +36,6 @@ void string_length_is_correct_after_sum_assignment();
 
 
 
-void string_stream_operator_works();
+
+void string_output_stream_operator_works();
+void string_input_stream_operator_works();

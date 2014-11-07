@@ -34,13 +34,15 @@ int main() {
 
   REGISTER_TEST(runner, string_concatenation_works_with_c_string);
   REGISTER_TEST(runner, string_concatenation_works_with_string);
+  REGISTER_TEST(runner, string_length_is_correct_after_concatenation);
 
   REGISTER_TEST(runner, string_sum_assignment_operator_works_with_c_string);
   REGISTER_TEST(runner, string_sum_assignment_operator_works_with_string);
   REGISTER_TEST(runner, string_sum_assignment_operator_returns_correct_string);
-  REGISTER_TEST(runner,  string_length_is_correct_after_sum_assignment);
+  REGISTER_TEST(runner, string_length_is_correct_after_sum_assignment);
 
-  REGISTER_TEST(runner, string_stream_operator_works);
+  REGISTER_TEST(runner, string_output_stream_operator_works);
+  REGISTER_TEST(runner, string_input_stream_operator_works);
 
 
 

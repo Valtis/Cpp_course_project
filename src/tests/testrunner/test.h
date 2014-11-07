@@ -2,7 +2,7 @@
 
 #include "test_runner.h"
 #include "exceptions.h"
-#include "stringutil.h"
+#include "../../utility/stringutil.h"
 
 // helper macro
 #define REGISTER_TEST(runner, x) runner.register_test(#x, (x));

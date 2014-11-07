@@ -123,6 +123,11 @@ void string_concatenation_works_with_string() {
   ASSERT_EQUALS(cs::string("hello world"), str + str2);
 }
 
+void string_length_is_correct_after_concatenation() {
+  cs::string str("hello ");
+  ASSERT_EQUALS(11u, (str + "world").length());
+}
+
 void string_sum_assignment_operator_works_with_c_string() {
   cs::string str("hello ");
   str += "world";
@@ -141,6 +146,7 @@ void string_sum_assignment_operator_returns_correct_string() {
   ASSERT_EQUALS(cs::string("hello world"), (str += "world"));
 }
 
+
 void string_length_is_correct_after_sum_assignment() {
   cs::string str("hello ");
   str += "world";
@@ -148,9 +154,17 @@ void string_length_is_correct_after_sum_assignment() {
   ASSERT_EQUALS(11u, str.length());
 }
 
-void string_stream_operator_works() {
+
+void string_output_stream_operator_works() {
   cs::string str("hello");
   std::ostringstream stream;
   stream << "This is "<< str << " world!";
   ASSERT_EQUALS(std::string("This is hello world!"), stream.str());
+}
+
+void string_input_stream_operator_works() {
+  cs::string str;
+  std::istringstream input("this is an input test!");
+  input >> str;
+  ASSERT_EQUALS(cs::string("this is an input test!"), str);
 }

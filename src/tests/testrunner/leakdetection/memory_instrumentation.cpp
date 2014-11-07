@@ -1,9 +1,8 @@
 #include "memory_instrumentation.h"
 
-// global override new\delete
+// global override new\delete. This allows us to instrument all calls and see if we have memory leaks
 
-void * operator new(std::size_t n) throw(std::bad_alloc)
-{
+void *operator new(std::size_t n) throw(std::bad_alloc) {
   auto alloc = get_allocations_list();
   auto ptr =  malloc(n);
 
@@ -15,8 +14,7 @@ void * operator new(std::size_t n) throw(std::bad_alloc)
   return ptr;
 }
 
-void * operator new[](std::size_t n) throw(std::bad_alloc)
-{
+void *operator new[](std::size_t n) throw(std::bad_alloc) {
   auto alloc = get_allocations_list();
   auto ptr =  malloc(n);
   if (ptr == nullptr) {
@@ -29,16 +27,14 @@ void * operator new[](std::size_t n) throw(std::bad_alloc)
 }
 
 
-void operator delete(void * p) throw()
-{
+void operator delete(void * p) throw() {
   auto alloc = get_allocations_list();
   alloc->remove_allocation(p, AllocationType::REGULAR);
   free(p);
 }
 
 
-void operator delete[](void * p) throw()
-{
+void operator delete[](void * p) throw() {
   auto alloc = get_allocations_list();
   alloc->remove_allocation(p, AllocationType::ARRAY);
 
@@ -47,6 +43,6 @@ void operator delete[](void * p) throw()
 
 
 allocations *get_allocations_list() {
-  static allocations alloc;
-  return &alloc;
+  static allocations allocs;
+  return &allocs;
 }

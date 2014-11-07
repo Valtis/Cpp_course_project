@@ -5,6 +5,8 @@
 
 enum class AllocationType : int { REGULAR, ARRAY } ;
 
+
+/* Class that is used to track any allocations made. Instrumented new\delete-functions use this */
 class allocations {
 public:
   void add_allocation(const void *addr, const AllocationType type, const size_t bytes, const int line, const char *file);

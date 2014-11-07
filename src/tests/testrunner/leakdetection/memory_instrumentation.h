@@ -1,7 +1,6 @@
 #pragma once
 #include "allocations.h"
-#include <cstdlib>
 
 
-
+// returns pointer to class that tracks allocations made
 allocations *get_allocations_list();

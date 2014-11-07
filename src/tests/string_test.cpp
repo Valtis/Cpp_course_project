@@ -1,6 +1,8 @@
 #include "string_test.h"
 #include "testrunner/test.h"
 #include "../string/string.h"
+#include <string>
+#include <sstream>
 
 void new_string_length_is_zero() {
   cs::string str;
@@ -81,4 +83,74 @@ void string_equality_operator_returns_false_when_comparing_to_different_string_w
 void string_equality_operator_returns_true_when_comparing_to_self() {
   cs::string str("hello_world");
   ASSERT_TRUE(str == str);
+}
+
+void string_non_equality_operator_returns_true_with_c_string() {
+  cs::string str("foobar");
+  ASSERT_TRUE(str != "hello");
+  ASSERT_TRUE("hello" != str);
+}
+
+void string_non_equality_operator_returns_false_with_c_string() {
+  cs::string str("foobar");
+  ASSERT_FALSE(str != "foobar");
+  ASSERT_FALSE("foobar" != str);
+}
+
+void string_non_equality_operator_returns_true_with_string() {
+  cs::string str("foobar");
+  cs::string str2("hello!");
+  ASSERT_TRUE(str != str2);
+}
+
+void string_non_equality_operator_returns_false_with_string() {
+  cs::string str("foobar");
+  cs::string str2("foobar");
+  ASSERT_FALSE(str != str2);
+}
+
+void string_concatenation_works_with_c_string() {
+  cs::string str("hello ");
+  cs::string str2("world");
+  ASSERT_EQUALS(cs::string("hello world"), str + "world");
+  ASSERT_EQUALS(cs::string("hello world"), "hello " + str2);
+}
+
+void string_concatenation_works_with_string() {
+  cs::string str("hello ");
+  cs::string str2("world");
+
+  ASSERT_EQUALS(cs::string("hello world"), str + str2);
+}
+
+void string_sum_assignment_operator_works_with_c_string() {
+  cs::string str("hello ");
+  str += "world";
+  ASSERT_EQUALS(cs::string("hello world"), str);
+}
+
+void string_sum_assignment_operator_works_with_string() {
+  cs::string str("hello ");
+  cs::string str2("world");
+  str += str2;
+  ASSERT_EQUALS(cs::string("hello world"), str);
+}
+
+void string_sum_assignment_operator_returns_correct_string() {
+  cs::string str("hello ");
+  ASSERT_EQUALS(cs::string("hello world"), (str += "world"));
+}
+
+void string_length_is_correct_after_sum_assignment() {
+  cs::string str("hello ");
+  str += "world";
+
+  ASSERT_EQUALS(11u, str.length());
+}
+
+void string_stream_operator_works() {
+  cs::string str("hello");
+  std::ostringstream stream;
+  stream << "This is "<< str << " world!";
+  ASSERT_EQUALS(std::string("This is hello world!"), stream.str());
 }

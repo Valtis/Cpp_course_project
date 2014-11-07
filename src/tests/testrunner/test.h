@@ -20,8 +20,8 @@
 template <typename T>
 void assert_equality(T expected, T actual, int line, std::string file) {
   if (expected != actual) {
-    throw AssertionException("Equality failure: Expected " + utility::to_string(expected)
-        + " but was " + utility::to_string(actual),
+    throw AssertionException("Equality failure: Expected '" + utility::to_string(expected)
+        + "' but was '" + utility::to_string(actual) + "'",
         line, file);
   }
 }

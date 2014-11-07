@@ -31,7 +31,7 @@ void test_runner::run_tests() {
     } catch (const std::exception &ex) {
       std::cout << "Unexpected exception caught: " << ex.what() << "\n";
     } catch (...) {
-      std::cout << "Unexpected exception with unknown type caught";
+      std::cout << "Unexpected exception with unknown type caught\n";
     }
 
 

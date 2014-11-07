@@ -39,6 +39,37 @@ void string_length_is_correct_when_initialized_with_string() {
   ASSERT_EQUALS(11u, new_str.length());
 }
 
+
+void assignment_operator_works_with_c_string() {
+  cs::string str;
+  str = "hello_world";
+
+  ASSERT_EQUALS(cs::string("hello_world"), str);
+}
+
+void assignment_operator_works_with_string() {
+  cs::string str;
+  cs::string str2("hello_world");
+  str = str2;
+
+  ASSERT_EQUALS(cs::string("hello_world"), str);
+}
+
+void assignment_operator_works_with_assignment_to_self() {
+  cs::string str("hello_world");
+  str = str;
+
+  ASSERT_EQUALS(cs::string("hello_world"), str);
+}
+
+void assignment_operator_assigns_multiple_variables_correctly() {
+  cs::string str, str2, str3, str4("hello_world");
+  str = str2 = str3 = str4;
+  ASSERT_EQUALS(cs::string("hello_world"), str);
+  ASSERT_EQUALS(cs::string("hello_world"), str2);
+  ASSERT_EQUALS(cs::string("hello_world"), str3);
+}
+
 void string_equality_operator_returns_true_when_comparing_to_same_c_string() {
   cs::string str("hello_world");
 

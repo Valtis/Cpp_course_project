@@ -9,6 +9,11 @@ void string_length_is_correct_when_initialized_with_c_string();
 void string_is_correctly_initialized_with_string();
 void string_length_is_correct_when_initialized_with_string();
 
+void assignment_operator_works_with_c_string();
+void assignment_operator_works_with_string();
+void assignment_operator_works_with_assignment_to_self();
+void assignment_operator_assigns_multiple_variables_correctly();
+
 void string_equality_operator_returns_true_when_comparing_to_same_c_string();
 void string_equality_operator_returns_false_when_comparing_to_different_c_string();
 void string_equality_operator_returns_false_when_comparing_to_different_c_string_with_same_length();

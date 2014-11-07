@@ -87,7 +87,7 @@ void string::increase_size(size_t new_length) {
 }
 
 
-
+// operator overloads
 
 bool operator==(const cs::string &lhs, const cs::string &rhs)  {
 
@@ -162,6 +162,7 @@ std::istream &operator>>(std::istream &input, cs::string &string) {
 
   input.read(string.m_text, length);
   string.m_text_length = length;
+  string.m_text[length] = '\0';
 
   assert(string.string_length(string.m_text) == length, "Invalid string length after operator>>");
 
@@ -174,6 +175,15 @@ char &cs::string::operator[](const size_t index) {
   }
 
   return m_text[index];
+}
+
+cs::string &cs::string::operator=(const cs::string &rhs) {
+  if (this != &rhs) {
+    copy_string(rhs.m_text, rhs.m_text_length);
+    assert(string_length(m_text) == rhs.m_text_length, "Text buffer length invalid after assignment");
+    assert(m_text_length == rhs.m_text_length, "Text length invalid after assignment");
+  }
+  return *this;
 }
 
 }

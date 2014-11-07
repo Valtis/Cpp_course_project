@@ -19,6 +19,11 @@ int main() {
   REGISTER_TEST(runner, string_is_correctly_initialized_with_string);
   REGISTER_TEST(runner, string_length_is_correct_when_initialized_with_string);
 
+  REGISTER_TEST(runner, assignment_operator_works_with_c_string);
+  REGISTER_TEST(runner, assignment_operator_works_with_string);
+  REGISTER_TEST(runner, assignment_operator_works_with_assignment_to_self);
+  REGISTER_TEST(runner, assignment_operator_assigns_multiple_variables_correctly);
+
   REGISTER_TEST(runner, string_equality_operator_returns_true_when_comparing_to_same_c_string);
   REGISTER_TEST(runner, string_equality_operator_returns_false_when_comparing_to_different_c_string);
   REGISTER_TEST(runner, string_equality_operator_returns_false_when_comparing_to_different_c_string_with_same_length);

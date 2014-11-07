@@ -32,12 +32,16 @@ namespace cs {
 
     size_t length() const;
 
+    // these are defined as free functions to allow implicit conversion for first parameter
+    // so both "hello" == cs::string("hello") and cs::string("hello") == "hello" are possible
     friend bool operator==(const cs::string &lhs, const cs::string &rhs);
     friend bool operator!=(const cs::string &lhs, const cs::string &rhs);
     friend cs::string operator+=(cs::string &lhs, const cs::string &rhs);
     friend cs::string operator+(const cs::string &lhs, const cs::string &rhs);
 
+    // these cannot be defined as free functions as that makes little sense
     char &operator[](const size_t index);
+    cs::string &operator=(const cs::string &rhs);
 
     friend std::ostream &operator<<(std::ostream &output, const cs::string &string);
     friend std::istream &operator>>(std::istream &input, cs::string &string);

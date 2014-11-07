@@ -52,3 +52,18 @@ void string_array_operator_throws_with_access_beyond_text_length();
 void string_array_operator_throws_with_negative_index();
 
 void swap_works();
+
+void push_back_char_works_to_empty_string();
+void push_back_char_works_to_nonempty_string();
+
+void push_back_string_works_to_empty_string();
+void push_back_string_works_to_nonempty_string();
+
+void string_is_correct_after_pop_back();
+void pop_back_returns_last_character_from_nonempty_string();
+void pop_back_throws_exception();
+
+void iterating_over_string_passes_all_characters();
+void iterating_using_range_based_loop_works();
+void can_mutate_string_through_iterator();
+void sorting_by_ascii_value_works_with_iterators();

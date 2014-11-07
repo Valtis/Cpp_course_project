@@ -6,12 +6,6 @@
 int main() {
   test_runner runner;
 
-/*
-  REGISTER_TEST(runner, passing_test);
-  REGISTER_TEST(runner, failing_test);
-  REGISTER_TEST(runner, non_leaking_test);
-  REGISTER_TEST(runner, leaking_test);*/
-
   REGISTER_TEST(runner, new_string_length_is_zero);
   REGISTER_TEST(runner, new_string_equals_to_empty_string);
   REGISTER_TEST(runner, string_is_correctly_initialized_with_c_string);
@@ -56,7 +50,23 @@ int main() {
   REGISTER_TEST(runner, string_array_operator_throws_with_access_beyond_text_length);
   REGISTER_TEST(runner, string_array_operator_throws_with_negative_index);
 
+  REGISTER_TEST(runner, push_back_char_works_to_empty_string);
+  REGISTER_TEST(runner, push_back_char_works_to_nonempty_string);
+
   REGISTER_TEST(runner, swap_works);
+
+  REGISTER_TEST(runner, push_back_string_works_to_empty_string);
+  REGISTER_TEST(runner, push_back_string_works_to_nonempty_string);
+
+  REGISTER_TEST(runner, string_is_correct_after_pop_back);
+  REGISTER_TEST(runner, pop_back_returns_last_character_from_nonempty_string);
+  REGISTER_TEST(runner, pop_back_throws_exception);
+
+  REGISTER_TEST(runner, iterating_over_string_passes_all_characters);
+  REGISTER_TEST(runner, iterating_using_range_based_loop_works);
+  REGISTER_TEST(runner, can_mutate_string_through_iterator);
+  REGISTER_TEST(runner, sorting_by_ascii_value_works_with_iterators);
+
 
 
   runner.run_tests();

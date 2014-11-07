@@ -22,6 +22,15 @@ string::~string() {
   delete [] m_text;
 }
 
+
+char *string::begin() const {
+    return m_text;
+}
+
+char *string::end() const {
+  return m_text + m_text_length;
+}
+
 size_t string::string_length(const char *str) const {
   size_t length = 0;
 
@@ -50,6 +59,35 @@ void string::swap(string &str) {
   str.m_text_length = text_length;
   str.m_buffer_length = buffer_length;
   str.m_text = text;
+}
+
+
+void string::push_back(const string &string) {
+  (*this) += string;
+}
+
+void string::push_back(char c) {
+  if (m_buffer_length <= m_text_length + 1) {
+    increase_size(m_text_length + 1);
+  }
+
+  assert(m_buffer_length > m_text_length + 1, "Buffer size insufficient for push_back(char)");
+
+  m_text[m_text_length] = c;
+  m_text[m_text_length + 1] = c;
+  ++m_text_length;
+}
+
+char string::pop_back() {
+  if (m_text_length == 0) {
+    throw std::out_of_range("Attempting to pop empty string");
+  }
+
+  --m_text_length;
+  char c = m_text[m_text_length];
+  m_text[m_text_length] = '\0';
+
+  return c;
 }
 
 void string::copy_string(const char *str, size_t size) {
@@ -99,6 +137,7 @@ void string::increase_size(size_t new_length) {
   m_buffer_length = new_length;
   assert(string_length(m_text) == m_text_length, "Invalid string length after increase_size");
 }
+
 
 
 // operator overloads

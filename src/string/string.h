@@ -14,7 +14,7 @@ undef assert
 #define assert(cond, msg) \
 { \
   if (!(cond)) {\
-    throw std::logic_error(std::string("Assertion failure at file ") + __FILE__ + " at line " + utility::to_string(__LINE__) + ":\n" + msg); \
+    throw std::logic_error(std::string("Assert failure at file ") + __FILE__ + " at line " + utility::to_string(__LINE__) + ":\n" + msg); \
   }\
 }
 #else
@@ -30,9 +30,20 @@ namespace cs {
 
     ~string();
 
+
+    // pointers are valid iterators
+    char *begin() const;
+    char *end() const;
+
     size_t length() const;
 
     void swap(string &str);
+
+    void push_back(const string &string);
+    void push_back(char c);
+
+    char pop_back();
+
 
     // these are defined as free functions to allow implicit conversion for first parameter
     // so both "hello" == cs::string("hello") and cs::string("hello") == "hello" are possible
@@ -51,7 +62,6 @@ namespace cs {
   private:
     void copy_string(const char *str, size_t length);
     size_t string_length(const char *str) const;
-
 
     // new size will be new_length + 1 to account for possible edge case where growth might be just enough to hold new
     // string but no null termintor

@@ -1,1 +1,6 @@
-Here be dragonsd
+Issues:
+
+Instrumented memory allocation causing infinite recursion with allocation tracker
+
+Uninitialized class variables causing random crashes when initialization code assumed they were initialized
+

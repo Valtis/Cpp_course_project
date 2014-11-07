@@ -3,6 +3,8 @@
 #include "../string/string.h"
 #include <string>
 #include <sstream>
+#include <algorithm>
+
 
 void new_string_length_is_zero() {
   cs::string str;
@@ -241,4 +243,87 @@ void swap_works() {
 
   ASSERT_EQUALS(cs::string("foobarbaz"), str);
   ASSERT_EQUALS(cs::string("text here"), str2);
+}
+
+void push_back_char_works_to_empty_string() {
+  cs::string str;
+  str.push_back('a');
+
+  ASSERT_EQUALS(cs::string("a"), str);
+}
+
+void push_back_char_works_to_nonempty_string() {
+  cs::string str("abcdef");
+  str.push_back('a');
+
+  ASSERT_EQUALS(cs::string("abcdefa"), str);
+}
+
+void push_back_string_works_to_empty_string() {
+  cs::string str;
+  str.push_back("hello");
+  ASSERT_EQUALS(cs::string("hello"), str);
+}
+
+void push_back_string_works_to_nonempty_string() {
+  cs::string str("hello");
+  str.push_back(" world");
+  ASSERT_EQUALS(cs::string("hello world"), str);
+}
+
+void string_is_correct_after_pop_back() {
+  cs::string str("hello!");
+  str.pop_back();
+  ASSERT_EQUALS(cs::string("hello"), str);
+}
+
+void pop_back_returns_last_character_from_nonempty_string() {
+  cs::string str("hello!");
+  ASSERT_EQUALS('!', str.pop_back());
+}
+
+void pop_back_throws_exception() {
+  cs::string str;
+  ASSERT_THROWS(str.pop_back(), std::out_of_range);
+}
+
+
+void iterating_over_string_passes_all_characters() {
+  cs::string str = "hello world!";
+  cs::string new_str;
+
+  for (auto iter = str.begin(); iter < str.end(); ++iter) {
+    new_str.push_back(*iter);
+  }
+
+  ASSERT_EQUALS(str, new_str);
+}
+
+void iterating_using_range_based_loop_works() {
+  cs::string str = "hello world!";
+  cs::string new_str;
+
+  for (char c : str) {
+    new_str.push_back(c);
+  }
+
+  ASSERT_EQUALS(str, new_str);
+}
+
+void can_mutate_string_through_iterator() {
+  cs::string str = "hxllo!";
+
+  auto iter = str.begin();
+  ++iter;
+  *iter = 'e';
+
+  ASSERT_EQUALS(cs::string("hello!"), str);
+}
+
+
+void sorting_by_ascii_value_works_with_iterators() {
+  cs::string str = "ihgfedcba";
+  std::sort(str.begin(), str.end());
+
+  ASSERT_EQUALS(cs::string("abcdefghi"), str);
 }

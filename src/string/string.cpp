@@ -38,6 +38,20 @@ size_t string::length() const {
   return m_text_length;
 }
 
+void string::swap(string &str) {
+  size_t text_length = m_text_length;
+  size_t buffer_length = m_buffer_length;
+  char *text = m_text;
+
+  m_text_length = str.m_text_length;
+  m_buffer_length = str.m_buffer_length;
+  m_text = str.m_text;
+
+  str.m_text_length = text_length;
+  str.m_buffer_length = buffer_length;
+  str.m_text = text;
+}
+
 void string::copy_string(const char *str, size_t size) {
 
   if (m_buffer_length <= size) {

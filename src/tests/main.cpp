@@ -56,6 +56,9 @@ int main() {
   REGISTER_TEST(runner, string_array_operator_throws_with_access_beyond_text_length);
   REGISTER_TEST(runner, string_array_operator_throws_with_negative_index);
 
+  REGISTER_TEST(runner, swap_works);
+
+
   runner.run_tests();
 
 }

@@ -1,7 +1,7 @@
 #include "allocations.h"
 #include <iostream>
 
-void allocations::add_allocation(void *  addr, const AllocationType type, const size_t bytes, const int line, const char* file) {
+void allocations::add_allocation(const void * addr, const AllocationType type, const size_t bytes, const int line, const char* file) {
 
   switch (type) {
     case AllocationType::REGULAR:
@@ -15,7 +15,7 @@ void allocations::add_allocation(void *  addr, const AllocationType type, const 
 
 }
 
-void allocations::remove_allocation(void *  addr, const AllocationType type) {
+void allocations::remove_allocation(const void * addr, const AllocationType type) {
   switch (type) {
     case AllocationType::REGULAR:
       m_regular_allocations.erase(addr);

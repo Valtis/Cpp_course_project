@@ -32,6 +32,8 @@ namespace cs {
 
     size_t length() const;
 
+    void swap(string &str);
+
     // these are defined as free functions to allow implicit conversion for first parameter
     // so both "hello" == cs::string("hello") and cs::string("hello") == "hello" are possible
     friend bool operator==(const cs::string &lhs, const cs::string &rhs);

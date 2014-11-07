@@ -50,3 +50,5 @@ void string_array_operator_gives_correct_letter_from_middle();
 void string_array_operator_gives_correct_letter_from_end();
 void string_array_operator_throws_with_access_beyond_text_length();
 void string_array_operator_throws_with_negative_index();
+
+void swap_works();

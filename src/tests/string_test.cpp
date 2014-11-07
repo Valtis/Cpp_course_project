@@ -189,7 +189,7 @@ void string_length_is_correct_after_sum_assignment() {
 void string_output_stream_operator_works() {
   cs::string str("hello");
   std::ostringstream stream;
-  stream << "This is "<< str << " world!";
+  stream << "This is " << str << " world!";
   ASSERT_EQUALS(std::string("This is hello world!"), stream.str());
 }
 
@@ -231,4 +231,14 @@ void string_array_operator_throws_with_access_beyond_text_length() {
 void string_array_operator_throws_with_negative_index() {
   cs::string str("teststring");
   ASSERT_THROWS(str[-1], std::out_of_range);
+}
+
+void swap_works() {
+  cs::string str("text here");
+  cs::string str2("foobarbaz");
+
+  str.swap(str2);
+
+  ASSERT_EQUALS(cs::string("foobarbaz"), str);
+  ASSERT_EQUALS(cs::string("text here"), str2);
 }

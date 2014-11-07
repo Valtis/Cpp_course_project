@@ -8,7 +8,6 @@
 #define REGISTER_TEST(runner, x) runner.register_test(#x, (x));
 
 // Test macros
-// assignments to prevent evaluation multiple times (in case there are side effects)
 #define ASSERT_EQUALS(expected, actual) assert_equality((expected), (actual), __LINE__, __FILE__)
 #define ASSERT_TRUE(value) assert_true((value), __LINE__, __FILE__)
 #define ASSERT_FALSE(value) assert_false((value), __LINE__, __FILE__)
@@ -22,7 +21,7 @@
     throw AssertionException(std::string("Unexpected exception with message: ") + ex.what(), line, file); \
   } \
   catch (...) {\
-   throw AssertionException("Unexpected exception of unknown type caught ", line, file); \
+    throw AssertionException("Unexpected exception of unknown type caught ", line, file); \
   }\
   if (!thrown) { \
     throw AssertionException(std::string("No exception of type ") + #exception_type + " was thrown", line, file); \

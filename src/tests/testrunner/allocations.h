@@ -7,8 +7,8 @@ enum class AllocationType : int { REGULAR, ARRAY } ;
 
 class allocations {
 public:
-  void add_allocation(void *addr, const AllocationType type, const size_t bytes, const int line, const char *file);
-  void remove_allocation(void *addr, const AllocationType type);
+  void add_allocation(const void *addr, const AllocationType type, const size_t bytes, const int line, const char *file);
+  void remove_allocation(const void *addr, const AllocationType type);
 
   bool has_errors();
   void print_errors();

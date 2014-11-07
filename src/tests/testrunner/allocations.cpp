@@ -29,7 +29,7 @@ void allocations::remove_allocation(void *  addr, const AllocationType type) {
 
 
 bool allocations::has_errors() {
-  return m_regular_allocations.size() != 0 && m_array_allocations.size() != 0;
+  return m_regular_allocations.size() != 0 || m_array_allocations.size() != 0;
 }
 
 void allocations::print_errors() {

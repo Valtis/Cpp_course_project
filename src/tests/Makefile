@@ -2,7 +2,7 @@ CXX = g++
 
 CXXFLAGS = -g -Wall -Werror -fmessage-length=0 -std=c++11
 
-CPP_FILES = $(wildcard *.cpp) $(wildcard testrunner/*.cpp)
+CPP_FILES = $(wildcard *.cpp) $(wildcard testrunner/*.cpp) $(wildcard ../string/*.cpp)
 
 OBJS =	$(CPP_FILES:.cpp=.o)
 

@@ -1,12 +1,5 @@
 #include "dummy_test.h"
 #include "testrunner/test.h"
-#include <cstdlib>
-
-#include "testrunner/memory_instrumentation.h"
-
-
-
-
 
 // should pass regular tests
 void passing_test() {

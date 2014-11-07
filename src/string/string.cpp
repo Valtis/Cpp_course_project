@@ -1,5 +1,5 @@
 #include "string.h"
-
+#include <stdexcept>
 namespace cs {
 
 
@@ -88,6 +88,7 @@ void string::increase_size(size_t new_length) {
 
 
 
+
 bool operator==(const cs::string &lhs, const cs::string &rhs)  {
 
   if (lhs.length() != rhs.length()) {
@@ -159,7 +160,6 @@ std::istream &operator>>(std::istream &input, cs::string &string) {
 
   assert(string.m_buffer_length > length, "Buffer size insufficient for operator>>!");
 
-
   input.read(string.m_text, length);
   string.m_text_length = length;
 
@@ -168,5 +168,12 @@ std::istream &operator>>(std::istream &input, cs::string &string) {
   return input;
 }
 
+char &cs::string::operator[](const size_t index) {
+  if (index >= m_text_length) {
+    throw std::out_of_range("Array index out of range: " + index);
+  }
+
+  return m_text[index];
+}
 
 }

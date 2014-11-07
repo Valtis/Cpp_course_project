@@ -37,6 +37,8 @@ namespace cs {
     friend cs::string operator+=(cs::string &lhs, const cs::string &rhs);
     friend cs::string operator+(const cs::string &lhs, const cs::string &rhs);
 
+    char &operator[](const size_t index);
+
     friend std::ostream &operator<<(std::ostream &output, const cs::string &string);
     friend std::istream &operator>>(std::istream &input, cs::string &string);
 

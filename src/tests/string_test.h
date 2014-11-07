@@ -35,8 +35,13 @@ void string_sum_assignment_operator_returns_correct_string();
 void string_length_is_correct_after_sum_assignment();
 
 
-
-
 void string_output_stream_operator_works();
 void string_input_stream_operator_works();
 void string_has_correct_length_after_input_stream();
+
+
+void string_array_operator_gives_correct_letter_from_beginning();
+void string_array_operator_gives_correct_letter_from_middle();
+void string_array_operator_gives_correct_letter_from_end();
+void string_array_operator_throws_with_access_beyond_text_length();
+void string_array_operator_throws_with_negative_index();

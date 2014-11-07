@@ -45,7 +45,11 @@ int main() {
   REGISTER_TEST(runner, string_input_stream_operator_works);
   REGISTER_TEST(runner, string_has_correct_length_after_input_stream);
 
-
+  REGISTER_TEST(runner, string_array_operator_gives_correct_letter_from_beginning);
+  REGISTER_TEST(runner, string_array_operator_gives_correct_letter_from_middle);
+  REGISTER_TEST(runner, string_array_operator_gives_correct_letter_from_end);
+  REGISTER_TEST(runner, string_array_operator_throws_with_access_beyond_text_length);
+  REGISTER_TEST(runner, string_array_operator_throws_with_negative_index);
 
   runner.run_tests();
 

@@ -175,3 +175,29 @@ void string_has_correct_length_after_input_stream() {
   input >> str;
   ASSERT_EQUALS(22u, str.length());
 }
+
+
+void string_array_operator_gives_correct_letter_from_beginning() {
+  cs::string str("teststring");
+  ASSERT_EQUALS('t', str[0]);
+}
+
+void string_array_operator_gives_correct_letter_from_middle() {
+  cs::string str("teststring");
+  ASSERT_EQUALS('r', str[6]);
+}
+
+void string_array_operator_gives_correct_letter_from_end() {
+  cs::string str("teststring");
+  ASSERT_EQUALS('g', str[9]);
+}
+
+void string_array_operator_throws_with_access_beyond_text_length() {
+  cs::string str("teststring");
+  ASSERT_THROWS(str[10], std::out_of_range);
+}
+
+void string_array_operator_throws_with_negative_index() {
+  cs::string str("teststring");
+  ASSERT_THROWS(str[-1], std::out_of_range);
+}

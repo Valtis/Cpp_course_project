@@ -43,6 +43,7 @@ int main() {
 
   REGISTER_TEST(runner, string_output_stream_operator_works);
   REGISTER_TEST(runner, string_input_stream_operator_works);
+  REGISTER_TEST(runner, string_has_correct_length_after_input_stream);
 
 
 

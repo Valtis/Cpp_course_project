@@ -168,3 +168,10 @@ void string_input_stream_operator_works() {
   input >> str;
   ASSERT_EQUALS(cs::string("this is an input test!"), str);
 }
+
+void string_has_correct_length_after_input_stream() {
+  cs::string str;
+  std::istringstream input("this is an input test!");
+  input >> str;
+  ASSERT_EQUALS(22u, str.length());
+}

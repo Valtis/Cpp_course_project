@@ -1,6 +1,25 @@
 #pragma once
 #include <cstddef>
-#include <ostream>
+#include <iostream>
+
+#ifdef assert
+undef assert
+#endif
+
+
+#ifndef NDEBUG
+#include <stdexcept>
+#include <string>
+#include "../utility/stringutil.h"
+#define assert(cond, msg) \
+{ \
+  if (!(cond)) {\
+    throw std::logic_error(std::string("Assertion failure at file ") + __FILE__ + " at line " + utility::to_string(__LINE__) + ":\n" + msg); \
+  }\
+}
+#else
+#define assert(x, msg)
+#endif
 
 namespace cs {
   class string {
@@ -19,11 +38,11 @@ namespace cs {
     friend cs::string operator+(const cs::string &lhs, const cs::string &rhs);
 
     friend std::ostream &operator<<(std::ostream &output, const cs::string &string);
-
+    friend std::istream &operator>>(std::istream &input, cs::string &string);
 
   private:
     void copy_string(const char *str, size_t length);
-    size_t string_length(const char *str);
+    size_t string_length(const char *str) const;
 
 
     // new size will be new_length + 1 to account for possible edge case where growth might be just enough to hold new

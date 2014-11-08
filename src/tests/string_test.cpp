@@ -292,7 +292,7 @@ void iterating_over_string_passes_all_characters() {
   cs::string str = "hello world!";
   cs::string new_str;
 
-  for (auto iter = str.begin(); iter < str.end(); ++iter) {
+  for (cs::string::iterator iter = str.begin(); iter < str.end(); ++iter) {
     new_str.push_back(*iter);
   }
 
@@ -326,4 +326,47 @@ void sorting_by_ascii_value_works_with_iterators() {
   std::sort(str.begin(), str.end());
 
   ASSERT_EQUALS(cs::string("abcdefghi"), str);
+}
+
+
+void insert_with_iterator_position_works_when_inserting_to_beginning() {
+  cs::string str = "Hello world!";
+  str.insert(str.begin(), "Wonderful ");
+  ASSERT_EQUALS(cs::string("Wonderful Hello world!"), str);
+}
+
+void insert_with_iterator_position_works_when_inserting_to_middle() {
+  cs::string str = "Hello world!";
+  str.insert(str.begin() + 6, "Wonderful ");
+  ASSERT_EQUALS(cs::string("Hello Wonderful world!"), str);
+}
+
+void insert_with_iterator_position_works_when_inserting_to_end() {
+  cs::string str = "Hello world!";
+  str.insert(str.end(), " Wonderful");
+  ASSERT_EQUALS(cs::string("Hello world! Wonderful"), str);
+}
+
+void insert_with_iterator_throws_if_position_is_before_start() {
+  cs::string str = "Hello world!";
+  // strictly speaking, pointer arithmetics where results ends outside assigned memory area (from beginning to one
+  // after the end)  is undefined. However, on x86, this should work fine
+  ASSERT_THROWS(str.insert(str.begin() - 1, "Wonderful"), std::out_of_range);
+}
+
+void insert_with_iterator_throws_if_position_is_after_end() {
+  cs::string str = "Hello world!";
+  ASSERT_THROWS(str.insert(str.end()+1, "Wonderful"), std::out_of_range);
+}
+
+void text_length_is_correct_after_insertion() {
+  cs::string str = "Hello world!";
+  str.insert(str.begin(), "Wonderful ");
+  ASSERT_EQUALS(22u, str.length());
+}
+
+
+void insert_with_iterator_returns_the_string_with_insertion() {
+  cs::string str = "Hello world!";
+  ASSERT_EQUALS(cs::string("Hello world! Wonderful"), str.insert(str.end(), " Wonderful"));
 }

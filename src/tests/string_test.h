@@ -67,3 +67,11 @@ void iterating_over_string_passes_all_characters();
 void iterating_using_range_based_loop_works();
 void can_mutate_string_through_iterator();
 void sorting_by_ascii_value_works_with_iterators();
+
+void insert_with_iterator_position_works_when_inserting_to_beginning();
+void insert_with_iterator_position_works_when_inserting_to_middle();
+void insert_with_iterator_position_works_when_inserting_to_end();
+void insert_with_iterator_throws_if_position_is_before_start();
+void insert_with_iterator_throws_if_position_is_after_end();
+void insert_with_iterator_returns_the_string_with_insertion();
+void text_length_is_correct_after_insertion();

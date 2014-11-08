@@ -23,11 +23,11 @@ string::~string() {
 }
 
 
-char *string::begin() const {
+cs::string::iterator string::begin() const {
     return m_text;
 }
 
-char *string::end() const {
+cs::string::iterator string::end() const {
   return m_text + m_text_length;
 }
 
@@ -88,6 +88,44 @@ char string::pop_back() {
   m_text[m_text_length] = '\0';
 
   return c;
+}
+
+
+string &string::insert(const cs::string::iterator start_position, const string &text) {
+  if (start_position < m_text || start_position > m_text + m_text_length) {
+    throw std::out_of_range("Attempting to insert text outside text buffer");
+  }
+
+  const size_t total_length = text.length() + m_text_length;
+
+  char *new_buffer = new char[total_length + 1];
+
+  new_buffer[total_length] = '\0';
+
+  // copy start of the orignal string to buffer
+  int pos = 0;
+  for (auto iter = begin(); iter != start_position; ++iter) {
+    new_buffer[pos++] = *iter;
+  }
+
+  // do insertion
+  for (size_t i = 0; i < text.length(); ++i) {
+    new_buffer[pos++] = text.m_text[i];
+  }
+
+  // and copy rest of the original string
+  for (size_t i = 0; start_position + i != end(); ++i)  {
+    new_buffer[pos++] = *(start_position + i);
+  }
+
+  delete [] m_text;
+  m_text = new_buffer;
+
+  m_text_length = total_length;
+  m_buffer_length = total_length;
+
+  assert(string_length(m_text) == total_length, "Invalid text buffer length after insertion");
+  return *this;
 }
 
 void string::copy_string(const char *str, size_t size) {

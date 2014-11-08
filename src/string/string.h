@@ -30,10 +30,11 @@ namespace cs {
 
     ~string();
 
-
     // pointers are valid iterators
-    char *begin() const;
-    char *end() const;
+    typedef char * iterator;
+
+    cs::string::iterator begin() const;
+    cs::string::iterator end() const;
 
     size_t length() const;
 
@@ -43,6 +44,8 @@ namespace cs {
     void push_back(char c);
 
     char pop_back();
+
+    string &insert(const cs::string::iterator start_position, const string &text);
 
 
     // these are defined as free functions to allow implicit conversion for first parameter

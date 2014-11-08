@@ -67,7 +67,13 @@ int main() {
   REGISTER_TEST(runner, can_mutate_string_through_iterator);
   REGISTER_TEST(runner, sorting_by_ascii_value_works_with_iterators);
 
-
+  REGISTER_TEST(runner, insert_with_iterator_position_works_when_inserting_to_beginning);
+  REGISTER_TEST(runner, insert_with_iterator_position_works_when_inserting_to_middle);
+  REGISTER_TEST(runner, insert_with_iterator_position_works_when_inserting_to_end);
+  REGISTER_TEST(runner, insert_with_iterator_throws_if_position_is_before_start);
+  REGISTER_TEST(runner, insert_with_iterator_throws_if_position_is_after_end);
+  REGISTER_TEST(runner, insert_with_iterator_returns_the_string_with_insertion);
+  REGISTER_TEST(runner, text_length_is_correct_after_insertion);
 
   runner.run_tests();
 

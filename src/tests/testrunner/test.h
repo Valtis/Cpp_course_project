@@ -12,7 +12,7 @@
 #define ASSERT_TRUE(value) assert_true((value), __LINE__, __FILE__)
 #define ASSERT_FALSE(value) assert_false((value), __LINE__, __FILE__)
 
-#define ASSERT_THROWS(x, exception_type)  auto line = __LINE__; auto file = __FILE__; bool thrown = false; try { \
+#define ASSERT_THROWS(x, exception_type) {  auto line = __LINE__; auto file = __FILE__; bool thrown = false; try { \
   (x); \
   } catch (const exception_type &ex) { \
     thrown = true; \
@@ -25,8 +25,7 @@
   }\
   if (!thrown) { \
     throw AssertionException(std::string("No exception of type ") + #exception_type + " was thrown", line, file); \
-  }
-
+  }}
 
 // due to templates, these must be defined in the header
 

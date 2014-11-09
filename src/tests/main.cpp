@@ -1,5 +1,4 @@
 #include "testrunner/test.h"
-#include "dummy_test.h"
 #include "string_test.h"
 
 

@@ -74,4 +74,12 @@ void insert_with_iterator_position_works_when_inserting_to_end();
 void insert_with_iterator_throws_if_position_is_before_start();
 void insert_with_iterator_throws_if_position_is_after_end();
 void insert_with_iterator_returns_the_string_with_insertion();
-void text_length_is_correct_after_insertion();
+void text_length_is_correct_after_insertion_with_iterator();
+
+void insert_with_integer_position_works_when_inserting_to_beginning();
+void insert_with_integer_position_works_when_inserting_to_middle();
+void insert_with_integer_position_works_when_inserting_to_end();
+void insert_with_integer_throws_if_integer_is_negative();
+void insert_with_integer_throws_if_integer_is_larger_than_string();
+void insert_with_integer_returns_the_string_with_insertion();
+void text_length_is_correct_after_insertion_with_integer_position();

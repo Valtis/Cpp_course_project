@@ -73,7 +73,16 @@ int main() {
   REGISTER_TEST(runner, insert_with_iterator_throws_if_position_is_before_start);
   REGISTER_TEST(runner, insert_with_iterator_throws_if_position_is_after_end);
   REGISTER_TEST(runner, insert_with_iterator_returns_the_string_with_insertion);
-  REGISTER_TEST(runner, text_length_is_correct_after_insertion);
+  REGISTER_TEST(runner, text_length_is_correct_after_insertion_with_iterator);
+
+  REGISTER_TEST(runner, insert_with_integer_position_works_when_inserting_to_beginning);
+  REGISTER_TEST(runner, insert_with_integer_position_works_when_inserting_to_middle);
+  REGISTER_TEST(runner, insert_with_integer_position_works_when_inserting_to_end);
+  REGISTER_TEST(runner, insert_with_integer_throws_if_integer_is_negative);
+  REGISTER_TEST(runner, insert_with_integer_throws_if_integer_is_larger_than_string);
+  REGISTER_TEST(runner, insert_with_integer_returns_the_string_with_insertion);
+  REGISTER_TEST(runner, text_length_is_correct_after_insertion_with_integer_position);
+
 
   runner.run_tests();
 

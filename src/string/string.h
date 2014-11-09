@@ -46,6 +46,7 @@ namespace cs {
     char pop_back();
 
     string &insert(const cs::string::iterator start_position, const string &text);
+    string &insert(const size_t start_position, const string &text);
 
 
     // these are defined as free functions to allow implicit conversion for first parameter

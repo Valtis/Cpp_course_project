@@ -98,6 +98,8 @@ string &string::insert(const cs::string::iterator start_position, const string &
 
   const size_t total_length = text.length() + m_text_length;
 
+  // we have to allocate new buffer, since growing old buffer (-> allocating larger one)
+  // invalidates iterators (as iterator is merely pointer to old buffer that has been deallocated)
   char *new_buffer = new char[total_length + 1];
 
   new_buffer[total_length] = '\0';
@@ -126,6 +128,11 @@ string &string::insert(const cs::string::iterator start_position, const string &
 
   assert(string_length(m_text) == total_length, "Invalid text buffer length after insertion");
   return *this;
+}
+
+
+string &string::insert(const size_t start_position, const string &text) {
+  return insert(begin() + start_position, text);
 }
 
 void string::copy_string(const char *str, size_t size) {

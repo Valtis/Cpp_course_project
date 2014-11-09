@@ -359,14 +359,54 @@ void insert_with_iterator_throws_if_position_is_after_end() {
   ASSERT_THROWS(str.insert(str.end()+1, "Wonderful"), std::out_of_range);
 }
 
-void text_length_is_correct_after_insertion() {
+void insert_with_iterator_returns_the_string_with_insertion() {
+  cs::string str = "Hello world!";
+  ASSERT_EQUALS(cs::string("Hello world! Wonderful"), str.insert(str.end(), " Wonderful"));
+}
+
+void text_length_is_correct_after_insertion_with_iterator() {
   cs::string str = "Hello world!";
   str.insert(str.begin(), "Wonderful ");
   ASSERT_EQUALS(22u, str.length());
 }
 
-
-void insert_with_iterator_returns_the_string_with_insertion() {
+void insert_with_integer_position_works_when_inserting_to_beginning() {
   cs::string str = "Hello world!";
-  ASSERT_EQUALS(cs::string("Hello world! Wonderful"), str.insert(str.end(), " Wonderful"));
+
+  // both char * and size_t are equally good implicit conversions for (int)0 so we have to specify that we actually want
+  // to use the size_t version
+  str.insert(0u, "Wonderful ");
+  ASSERT_EQUALS(cs::string("Wonderful Hello world!"), str);
+}
+
+void insert_with_integer_position_works_when_inserting_to_middle() {
+  cs::string str = "Hello world!";
+  str.insert(6, "Wonderful ");
+  ASSERT_EQUALS(cs::string("Hello Wonderful world!"), str);
+}
+
+void insert_with_integer_position_works_when_inserting_to_end() {
+  cs::string str = "Hello world!";
+  str.insert(12, " Wonderful");
+  ASSERT_EQUALS(cs::string("Hello world! Wonderful"), str);
+}
+
+void insert_with_integer_throws_if_integer_is_negative() {
+  cs::string str = "Hello world!";
+  ASSERT_THROWS(str.insert(-1, "Wonderful"), std::out_of_range);
+}
+
+void insert_with_integer_throws_if_integer_is_larger_than_string() {
+  cs::string str = "Hello world!";
+  ASSERT_THROWS(str.insert(13, "Wonderful"), std::out_of_range);
+}
+void insert_with_integer_returns_the_string_with_insertion() {
+  cs::string str = "Hello world!";
+  ASSERT_EQUALS(cs::string("Hello world! Wonderful"), str.insert(12, " Wonderful"));
+}
+
+void text_length_is_correct_after_insertion_with_integer_position() {
+  cs::string str = "Hello world!";
+  str.insert(0u, "Wonderful ");
+  ASSERT_EQUALS(22u, str.length());
 }

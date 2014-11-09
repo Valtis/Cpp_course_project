@@ -1,5 +1,7 @@
 #include "string.h"
+#include "assert.h"
 #include <stdexcept>
+
 namespace cs {
 
 
@@ -23,11 +25,11 @@ string::~string() {
 }
 
 
-cs::string::iterator string::begin() const {
+string::iterator string::begin() const {
     return m_text;
 }
 
-cs::string::iterator string::end() const {
+string::iterator string::end() const {
   return m_text + m_text_length;
 }
 
@@ -91,7 +93,7 @@ char string::pop_back() {
 }
 
 
-string &string::insert(const cs::string::iterator start_position, const string &text) {
+string &string::insert(const string::iterator start_position, const string &text) {
   if (start_position < m_text || start_position > m_text + m_text_length) {
     throw std::out_of_range("Attempting to insert text outside text buffer");
   }
@@ -134,6 +136,31 @@ string &string::insert(const cs::string::iterator start_position, const string &
 string &string::insert(const size_t start_position, const string &text) {
   return insert(begin() + start_position, text);
 }
+
+
+string::iterator string::erase(const string::iterator start_position, const string::iterator end_position) {
+  if (start_position < begin() || end_position > end() || start_position >= end() || start_position > end_position) {
+    throw std::out_of_range("Invalid iterators given to erase()");
+  }
+
+  if (start_position != end_position) {
+    // copy the end of string to positions starting from start_position
+    for (size_t i = 0; i < length() - (end() - end_position); ++i) {
+      *(start_position + i) = *(end_position + i);
+    }
+
+    *(start_position + length() - (end() - end_position)) = '\0';
+
+    m_text_length -= (end_position - start_position);
+  }
+
+  return start_position;
+}
+
+string::iterator string::erase(const size_t start_position, const size_t length) {
+  return erase(begin() + start_position, std::min(end(), begin() + start_position + length));
+}
+
 
 void string::copy_string(const char *str, size_t size) {
 

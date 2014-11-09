@@ -1,6 +1,5 @@
 #pragma once
 
-
 void new_string_length_is_zero();
 void new_string_equals_to_empty_string();
 
@@ -29,7 +28,6 @@ void string_non_equality_operator_returns_false_with_c_string();
 void string_non_equality_operator_returns_true_with_string();
 void string_non_equality_operator_returns_false_with_string();
 
-
 void string_concatenation_works_with_c_string();
 void string_concatenation_works_with_string();
 void string_length_is_correct_after_concatenation();
@@ -39,11 +37,9 @@ void string_sum_assignment_operator_works_with_string();
 void string_sum_assignment_operator_returns_correct_string();
 void string_length_is_correct_after_sum_assignment();
 
-
 void string_output_stream_operator_works();
 void string_input_stream_operator_works();
 void string_has_correct_length_after_input_stream();
-
 
 void string_array_operator_gives_correct_letter_from_beginning();
 void string_array_operator_gives_correct_letter_from_middle();
@@ -83,3 +79,27 @@ void insert_with_integer_throws_if_integer_is_negative();
 void insert_with_integer_throws_if_integer_is_larger_than_string();
 void insert_with_integer_returns_the_string_with_insertion();
 void text_length_is_correct_after_insertion_with_integer_position();
+
+void erase_with_iterator_range_erases_correctly_from_beginning();
+void erase_with_iterator_range_erases_correctly_from_the_middle();
+void erase_with_iterator_range_erases_correctly_from_end();
+void erase_with_iterator_range_erases_whole_string_with_begin_and_end_iterators();
+void erase_with_iterator_range_does_not_change_string_if_iterators_are_same();
+void erase_with_iterator_range_returns_iterator_to_first_character_not_erased();
+void erase_with_iterator_range_returns_end_if_rest_of_string_erased();
+void erase_with_iterator_range_returns_correct_string_length();
+void erase_with_iterator_range_throws_if_start_iterator_is_smaller_than_begin();
+void erase_with_iterator_range_throws_if_end_iterator_is_beyond_end_of_string();
+void erase_with_iterator_range_throws_if_start_iterator_is_greater_than_end_iterator();
+
+void erase_with_integers_erases_correctly_from_beginning();
+void erase_with_integers_erases_correctly_from_the_middle();
+void erase_with_integers_erases_correctly_from_end();
+void erase_with_integers_erases_string_from_start_position_if_length_is_larger_than_remaining_string();
+void erase_with_integers_erases_whole_string_with_0_and_length_as_parameters();
+void erase_with_integers_does_not_change_string_if_length_is_0();
+void erase_with_integers_returns_iterator_to_first_character_not_erased();
+void erase_with_integers_returns_end_if_rest_of_string_erased();
+void erase_with_integers_returns_correct_string_length();
+void erase_with_integers_throws_if_start_is_negative();
+void erase_with_integers_throws_if_start_is_beyond_string_length();

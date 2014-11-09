@@ -83,6 +83,30 @@ int main() {
   REGISTER_TEST(runner, insert_with_integer_returns_the_string_with_insertion);
   REGISTER_TEST(runner, text_length_is_correct_after_insertion_with_integer_position);
 
+  REGISTER_TEST(runner, erase_with_iterator_range_erases_correctly_from_beginning);
+  REGISTER_TEST(runner, erase_with_iterator_range_erases_correctly_from_the_middle);
+  REGISTER_TEST(runner, erase_with_iterator_range_erases_correctly_from_end);
+  REGISTER_TEST(runner, erase_with_iterator_range_erases_whole_string_with_begin_and_end_iterators);
+  REGISTER_TEST(runner, erase_with_iterator_range_does_not_change_string_if_iterators_are_same);
+  REGISTER_TEST(runner, erase_with_iterator_range_returns_iterator_to_first_character_not_erased);
+  REGISTER_TEST(runner, erase_with_iterator_range_returns_end_if_rest_of_string_erased);
+  REGISTER_TEST(runner, erase_with_iterator_range_returns_correct_string_length);
+  REGISTER_TEST(runner, erase_with_iterator_range_throws_if_start_iterator_is_smaller_than_begin);
+  REGISTER_TEST(runner, erase_with_iterator_range_throws_if_end_iterator_is_beyond_end_of_string);
+  REGISTER_TEST(runner, erase_with_iterator_range_throws_if_start_iterator_is_greater_than_end_iterator);
+
+  REGISTER_TEST(runner, erase_with_integers_erases_correctly_from_beginning);
+  REGISTER_TEST(runner, erase_with_integers_erases_correctly_from_the_middle);
+  REGISTER_TEST(runner, erase_with_integers_erases_correctly_from_end);
+  REGISTER_TEST(runner, erase_with_integers_erases_string_from_start_position_if_length_is_larger_than_remaining_string);
+  REGISTER_TEST(runner, erase_with_integers_erases_whole_string_with_0_and_length_as_parameters);
+  REGISTER_TEST(runner, erase_with_integers_does_not_change_string_if_length_is_0);
+  REGISTER_TEST(runner, erase_with_integers_returns_iterator_to_first_character_not_erased);
+  REGISTER_TEST(runner, erase_with_integers_returns_end_if_rest_of_string_erased);
+  REGISTER_TEST(runner, erase_with_integers_returns_correct_string_length);
+  REGISTER_TEST(runner, erase_with_integers_throws_if_start_is_negative);
+  REGISTER_TEST(runner, erase_with_integers_throws_if_start_is_beyond_string_length);
+
 
   runner.run_tests();
 

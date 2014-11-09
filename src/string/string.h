@@ -2,25 +2,6 @@
 #include <cstddef>
 #include <iostream>
 
-#ifdef assert
-undef assert
-#endif
-
-
-#ifndef NDEBUG
-#include <stdexcept>
-#include <string>
-#include "../utility/stringutil.h"
-#define assert(cond, msg) \
-{ \
-  if (!(cond)) {\
-    throw std::logic_error(std::string("Assert failure at file ") + __FILE__ + " at line " + utility::to_string(__LINE__) + ":\n" + msg); \
-  }\
-}
-#else
-#define assert(x, msg)
-#endif
-
 namespace cs {
   class string {
   public:
@@ -33,11 +14,12 @@ namespace cs {
     // pointers are valid iterators
     typedef char * iterator;
 
-    cs::string::iterator begin() const;
-    cs::string::iterator end() const;
+    iterator begin() const;
+    iterator end() const;
 
     size_t length() const;
 
+    // modification operators
     void swap(string &str);
 
     void push_back(const string &string);
@@ -45,9 +27,11 @@ namespace cs {
 
     char pop_back();
 
-    string &insert(const cs::string::iterator start_position, const string &text);
+    string &insert(const iterator start_position, const string &text);
     string &insert(const size_t start_position, const string &text);
 
+    iterator erase(const iterator start_position, const iterator end_position);
+    iterator erase(const size_t start_position, const size_t length);
 
     // these are defined as free functions to allow implicit conversion for first parameter
     // so both "hello" == cs::string("hello") and cs::string("hello") == "hello" are possible
@@ -60,10 +44,12 @@ namespace cs {
     char &operator[](const size_t index);
     cs::string &operator=(const cs::string &rhs);
 
+    // stream operators
     friend std::ostream &operator<<(std::ostream &output, const cs::string &string);
     friend std::istream &operator>>(std::istream &input, cs::string &string);
 
   private:
+    // not entirely sure if strcpy and strlen can be used, so I implemented my own just to err on the side of caution
     void copy_string(const char *str, size_t length);
     size_t string_length(const char *str) const;
 

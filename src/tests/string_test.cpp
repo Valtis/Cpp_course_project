@@ -415,15 +415,15 @@ void text_length_is_correct_after_insertion_with_integer_position() {
 void erase_with_iterator_range_erases_correctly_from_beginning() {
 
   cs::string str = "Hello world!";
-  str.erase(str.begin(), str.begin() + 6);
+  str.erase(str.begin(), str.begin() + 2);
 
-  ASSERT_EQUALS(cs::string("world!"), str);
+  ASSERT_EQUALS(cs::string("llo world!"), str);
 }
 void erase_with_iterator_range_erases_correctly_from_the_middle() {
   cs::string str = "Hello world!";
-  str.erase(str.begin() + 2, str.begin() + 9);
+  str.erase(str.begin() + 2, str.begin() + 5);
 
-  ASSERT_EQUALS(cs::string("Held!"), str);
+  ASSERT_EQUALS(cs::string("He world!"), str);
 }
 
 void erase_with_iterator_range_erases_correctly_from_end() {
@@ -523,15 +523,9 @@ void erase_with_integers_does_not_change_string_if_length_is_0() {
   ASSERT_EQUALS(cs::string("Hello world!"), str);
 }
 
-void erase_with_integers_returns_iterator_to_first_character_not_erased() {
+void erase_with_integers_returns_string_after_erasion() {
   cs::string str = "Hello world!";
-  ASSERT_EQUALS('w', *str.erase(0, 6));
-}
-
-void erase_with_integers_returns_end_if_rest_of_string_erased() {
-  cs::string str = "Hello world!";
-  auto iter = str.erase(5, str.length());
-  ASSERT_EQUALS(str.end(), iter);
+  ASSERT_EQUALS(cs::string("world!"), str.erase(0, 6));
 }
 
 void erase_with_integers_returns_correct_string_length() {
@@ -548,4 +542,48 @@ void erase_with_integers_throws_if_start_is_negative() {
 void erase_with_integers_throws_if_start_is_beyond_string_length() {
   cs::string str = "Hello world!";
   ASSERT_THROWS(str.erase(str.length(), 4), std::out_of_range);
+}
+
+void erase_with_single_iterator_erases_character_correctly_from_beginning() {
+  cs::string str = "Hello world!";
+  str.erase(str.begin());
+  ASSERT_EQUALS(cs::string("ello world!"), str);
+}
+
+void erase_with_single_iterator_erases_character_correctly_from_middle() {
+  cs::string str = "Hello world!";
+  str.erase(str.begin()+6);
+  ASSERT_EQUALS(cs::string("Hello orld!"), str);
+}
+
+void erase_with_single_iterator_erases_character_correctly_from_end() {
+  cs::string str = "Hello world!";
+  str.erase(str.end() - 1);
+  ASSERT_EQUALS(cs::string("Hello world"), str);
+}
+
+void erase_with_single_iterator_returns_iterator_to_first_character_not_erased() {
+  cs::string str = "Hello world!";
+  ASSERT_EQUALS('o', *str.erase(str.begin()+6));
+}
+
+void erase_with_single_iterator_returns_iterator_to_end_when_erasing_last_character() {
+  cs::string str = "Hello world!";
+  auto iter =  str.erase(str.end() - 1);
+  ASSERT_EQUALS(str.end(), iter);
+}
+
+void erase_with_single_iterator_throws_if_iterator_is_before_begin() {
+  cs::string str = "Hello world!";
+  ASSERT_THROWS(str.erase(str.begin() - 1), std::out_of_range);
+}
+
+void erase_with_single_iterator_throws_if_iterator_is_end() {
+  cs::string str = "Hello world!";
+  ASSERT_THROWS(str.erase(str.end()), std::out_of_range);
+}
+
+void erase_with_single_iterator_throws_if_iterator_is_after_end() {
+  cs::string str = "Hello world!";
+  ASSERT_THROWS(str.erase(str.end()+1), std::out_of_range);
 }

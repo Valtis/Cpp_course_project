@@ -38,7 +38,7 @@ void test_runner::handle_test_case(test_case test) {
     test.test_function();
     passing = true;
   } catch (const AssertionException &ex) {
-    std::cout << "Assertion failure at test " << test.test_name << ": " << ex.what() << "\n";
+    std::cout << "Assertion failure at test " << test.test_name << ":\n   " << ex.what() << "\n";
     std::cout << "Failed at line " << ex.line() << " at file " << ex.file() << "\n";
   } catch (const std::exception &ex) {
     std::cout << "Unexpected exception caught: " << ex.what() << "\n";

@@ -101,12 +101,20 @@ int main() {
   REGISTER_TEST(runner, erase_with_integers_erases_string_from_start_position_if_length_is_larger_than_remaining_string);
   REGISTER_TEST(runner, erase_with_integers_erases_whole_string_with_0_and_length_as_parameters);
   REGISTER_TEST(runner, erase_with_integers_does_not_change_string_if_length_is_0);
-  REGISTER_TEST(runner, erase_with_integers_returns_iterator_to_first_character_not_erased);
-  REGISTER_TEST(runner, erase_with_integers_returns_end_if_rest_of_string_erased);
+  REGISTER_TEST(runner, erase_with_integers_returns_string_after_erasion);
   REGISTER_TEST(runner, erase_with_integers_returns_correct_string_length);
   REGISTER_TEST(runner, erase_with_integers_throws_if_start_is_negative);
   REGISTER_TEST(runner, erase_with_integers_throws_if_start_is_beyond_string_length);
 
+
+  REGISTER_TEST(runner, erase_with_single_iterator_erases_character_correctly_from_beginning);
+  REGISTER_TEST(runner, erase_with_single_iterator_erases_character_correctly_from_middle);
+  REGISTER_TEST(runner, erase_with_single_iterator_erases_character_correctly_from_end);
+  REGISTER_TEST(runner, erase_with_single_iterator_returns_iterator_to_first_character_not_erased);
+  REGISTER_TEST(runner, erase_with_single_iterator_returns_iterator_to_end_when_erasing_last_character);
+  REGISTER_TEST(runner, erase_with_single_iterator_throws_if_iterator_is_before_begin);
+  REGISTER_TEST(runner, erase_with_single_iterator_throws_if_iterator_is_end);
+  REGISTER_TEST(runner, erase_with_single_iterator_throws_if_iterator_is_after_end);
 
   runner.run_tests();
 

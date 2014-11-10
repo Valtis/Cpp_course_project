@@ -28,11 +28,11 @@ void allocations::remove_allocation(const void * addr, const AllocationType type
 }
 
 
-bool allocations::has_errors() {
+bool allocations::has_errors() const {
   return m_regular_allocations.size() != 0 || m_array_allocations.size() != 0;
 }
 
-void allocations::print_errors() {
+void allocations::print_errors() const {
   for (auto pair : m_regular_allocations) {
     std::cout << "Memory leak at address " << pair.first << ". " << pair.second << " bytes lost\n";
   }

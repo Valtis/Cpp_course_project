@@ -12,6 +12,8 @@
 #define ASSERT_TRUE(value) assert_true((value), __LINE__, __FILE__)
 #define ASSERT_FALSE(value) assert_false((value), __LINE__, __FILE__)
 
+
+// have to be a macro instead of function as the x must first be evaluated inside try block
 #define ASSERT_THROWS(x, exception_type) {  auto line = __LINE__; auto file = __FILE__; bool thrown = false; try { \
   (x); \
   } catch (const exception_type &ex) { \

@@ -1,8 +1,12 @@
 #include "string.h"
+
+
 #include "assert.h"
 #include <stdexcept>
+#define CHECK() check(__LINE__)
 
 namespace cs {
+
 
 
 const float GROWTH_FACTOR = 1.5;
@@ -52,6 +56,8 @@ void string::swap(string &str) {
   str.m_text_length = text_length;
   str.m_buffer_length = buffer_length;
   str.m_text = text;
+  CHECK();
+  str.CHECK();
 }
 
 // appends string to the end of string. Equal to += operator
@@ -63,7 +69,7 @@ void string::push_back(const string &string) {
 // appends char to the end of string
 void string::push_back(char c) {
   if (m_buffer_length <= m_text_length + 1) {
-    increase_size(m_text_length + 1);
+    increase_size((m_text_length + 1)*GROWTH_FACTOR);
   }
 
   assert(m_buffer_length > m_text_length + 1, "Buffer size insufficient for push_back(char)");
@@ -71,6 +77,7 @@ void string::push_back(char c) {
   m_text[m_text_length] = c;
   m_text[m_text_length + 1] = c;
   ++m_text_length;
+  CHECK();
 }
 
 // removes char from the end of string and returns it
@@ -82,7 +89,7 @@ char string::pop_back() {
   --m_text_length;
   char c = m_text[m_text_length];
   m_text[m_text_length] = '\0';
-
+  CHECK();
   return c;
 }
 
@@ -123,6 +130,7 @@ string &string::insert(const string::iterator start_position, const string &text
   m_buffer_length = total_length;
 
   assert(string_length(m_text) == total_length, "Invalid text buffer length after insertion");
+  CHECK();
   return *this;
 }
 
@@ -158,7 +166,7 @@ string::iterator string::erase(const string::iterator start_position, const stri
 
 
   }
-
+  CHECK();
   return start_position;
 }
 
@@ -220,6 +228,7 @@ string operator+=(cs::string &lhs, const cs::string &rhs) {
   assert(lhs.string_length(lhs.m_text) == lhs.length() + rhs.length(), "Invalid string length after operator+=");
   lhs.m_text_length = length;
 
+  lhs.CHECK();
   return lhs;
 }
 
@@ -230,6 +239,7 @@ string operator+(const cs::string &lhs, const cs::string &rhs) {
   new_string += rhs;
 
   assert(lhs.string_length(new_string.m_text) == lhs.length() + rhs.length(), "Invalid string length after operator+");
+  new_string.CHECK();
   return new_string;
 }
 
@@ -259,7 +269,7 @@ std::istream &operator>>(std::istream &input, cs::string &string) {
   string.m_text[length] = '\0';
 
   assert(string.string_length(string.m_text) == length, "Invalid string length after operator>>");
-
+  string.CHECK();
   return input;
 }
 
@@ -268,13 +278,14 @@ char &cs::string::operator[](const size_t index) {
   if (index >= m_text_length) {
     throw std::out_of_range("Array index out of range: " + index);
   }
-
+  CHECK();
   return m_text[index];
 }
 
 // assignment operator. Copies content of rhs to this string
 cs::string &cs::string::operator=(cs::string rhs) {
   swap(rhs);
+  CHECK();
   return *this;
 }
 
@@ -308,10 +319,11 @@ void string::increase_size(size_t new_length) {
   m_text = new_buffer;
   m_buffer_length = new_length;
   assert(string_length(m_text) == m_text_length, "Invalid string length after increase_size");
+  CHECK();
 }
 
 
-// basically strncpy
+// copies size chars from str to buffer
 void string::copy_string(const char *str, size_t size) {
 
   if (m_buffer_length <= size) {
@@ -327,8 +339,8 @@ void string::copy_string(const char *str, size_t size) {
   m_text[size] = '\0';
   m_text_length = size;
 
-
   assert(string_length(m_text) == size, "Invalid string length after copy_string");
+  CHECK();
 }
 
 // basically strlen
@@ -343,5 +355,17 @@ size_t string::string_length(const char *str) const {
   return length;
 }
 
+// checks that class invariant is holding
+void string::check(int line) const {
+  assert(m_text != nullptr,
+    std::string("Class invariant violation: text buffer is null (called from line ") +
+      utility::to_string(line) +")");
+  assert(m_text_length < m_buffer_length,
+    std::string("Class invariant violation: text length is greater than buffer length \
+      (called from line ") + utility::to_string(line) +")");
+  assert(m_text[m_text_length] == '\0',
+    std::string("Class invariant violation: String is not null terminated \
+      (called from line ") + utility::to_string(line) +")");
+}
 
 }

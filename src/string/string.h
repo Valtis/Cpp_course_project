@@ -87,6 +87,8 @@ namespace cs {
 
   private:
 
+    void check(int line) const;
+
     // new size will be new_length + 1 to account for possible edge case where growth might be just enough to hold new
     // string but no null termintor
     void increase_size_no_copy(size_t new_length);

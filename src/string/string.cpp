@@ -11,17 +11,20 @@ namespace cs {
 
 const float GROWTH_FACTOR = 1.5;
 
-string::string() : m_text(nullptr), m_text_length(0), m_buffer_length(0) {
+string::string() : m_text(nullptr), m_text_length(0), m_buffer_length(1) {
   m_text = new char[1];
   m_text[0] = '\0';
+  CHECK();
 }
 
 string::string(const char *rhs) : m_text(nullptr), m_text_length(0), m_buffer_length(0) {
   copy_string(rhs, string_length(rhs));
+  CHECK();
 }
 
 string::string(const string &rhs) : m_text(nullptr), m_text_length(0), m_buffer_length(0) {
   copy_string(rhs.m_text, rhs.m_text_length);
+  CHECK();
 }
 
 string::~string() {
@@ -45,6 +48,7 @@ size_t string::length() const {
 
 // swaps contents between two strings
 void string::swap(string &str) {
+  CHECK();
   size_t text_length = m_text_length;
   size_t buffer_length = m_buffer_length;
   char *text = m_text;
@@ -56,18 +60,21 @@ void string::swap(string &str) {
   str.m_text_length = text_length;
   str.m_buffer_length = buffer_length;
   str.m_text = text;
+
   CHECK();
   str.CHECK();
 }
 
 // appends string to the end of string. Equal to += operator
 void string::push_back(const string &string) {
+  CHECK();
   (*this) += string;
 }
 
 
 // appends char to the end of string
 void string::push_back(char c) {
+  CHECK();
   if (m_buffer_length <= m_text_length + 1) {
     increase_size((m_text_length + 1)*GROWTH_FACTOR);
   }
@@ -75,13 +82,14 @@ void string::push_back(char c) {
   assert(m_buffer_length > m_text_length + 1, "Buffer size insufficient for push_back(char)");
 
   m_text[m_text_length] = c;
-  m_text[m_text_length + 1] = c;
+  m_text[m_text_length + 1] = '\0';
   ++m_text_length;
   CHECK();
 }
 
 // removes char from the end of string and returns it
 char string::pop_back() {
+  CHECK();
   if (m_text_length == 0) {
     throw std::out_of_range("Attempting to pop empty string");
   }
@@ -95,17 +103,19 @@ char string::pop_back() {
 
 // inserts text to position specified by start_position
 string &string::insert(const string::iterator start_position, const string &text) {
+  CHECK();
   if (start_position < m_text || start_position > m_text + m_text_length) {
     throw std::out_of_range("Attempting to insert text outside text buffer");
   }
 
-  const size_t total_length = text.length() + m_text_length;
+  const size_t text_length = text.length() + m_text_length;
+  const size_t buffer_length = text_length + 1;
 
   // we have to allocate new buffer, since growing old buffer (-> allocating larger one)
   // invalidates iterators (as iterator is merely pointer to old buffer that has been deallocated)
-  char *new_buffer = new char[total_length + 1];
+  char *new_buffer = new char[buffer_length];
 
-  new_buffer[total_length] = '\0';
+  new_buffer[text_length] = '\0';
 
   // copy start of the orignal string to buffer
   int pos = 0;
@@ -126,10 +136,10 @@ string &string::insert(const string::iterator start_position, const string &text
   delete [] m_text;
   m_text = new_buffer;
 
-  m_text_length = total_length;
-  m_buffer_length = total_length + 1;
+  m_text_length = text_length;
+  m_buffer_length = buffer_length;
 
-  assert(string_length(m_text) == total_length, "Invalid text buffer length after insertion");
+  assert(string_length(m_text) == text_length, "Invalid text buffer length after insertion");
   CHECK();
   return *this;
 }
@@ -141,6 +151,7 @@ string &string::insert(const size_t start_position, const string &text) {
 
 // erases characters between [start, end[ (start included, end not). Throws on invalid iterators
 string::iterator string::erase(const string::iterator start_position, const string::iterator end_position) {
+  CHECK();
   if (start_position < begin() || end_position > end() || start_position >= end() || start_position > end_position) {
     throw std::out_of_range("Invalid iterators given to erase()");
   }
@@ -186,7 +197,8 @@ string &string::erase(const size_t start_position, const size_t length) {
 
 // returns true if contents are equal, false otherwise
 bool operator==(const cs::string &lhs, const cs::string &rhs)  {
-
+  lhs.CHECK();
+  rhs.CHECK();
   if (lhs.length() != rhs.length()) {
     return false;
   }
@@ -210,6 +222,8 @@ bool operator!=(const cs::string &lhs, const cs::string &rhs)  {
 
 // appends content of rhs to the end of lhs
 string operator+=(cs::string &lhs, const cs::string &rhs) {
+  lhs.CHECK();
+  rhs.CHECK();
   if (lhs.m_buffer_length  <= lhs.length() + rhs.length()) {
     lhs.increase_size((size_t)((lhs.m_buffer_length + rhs.length())*GROWTH_FACTOR));
   }
@@ -234,6 +248,8 @@ string operator+=(cs::string &lhs, const cs::string &rhs) {
 
 // concatenation operator. Returns new string which is concatenation between the two parameters.
 string operator+(const cs::string &lhs, const cs::string &rhs) {
+  lhs.CHECK();
+  rhs.CHECK();
   cs::string new_string;
   new_string += lhs;
   new_string += rhs;
@@ -252,7 +268,6 @@ std::ostream &operator<<(std::ostream &output, const cs::string &string) {
 
 // >> operator. copies content of stream to buffer
 std::istream &operator>>(std::istream &input, cs::string &string) {
-
   // get length first
   input.seekg (0, input.end);
   size_t length = input.tellg();
@@ -275,10 +290,10 @@ std::istream &operator>>(std::istream &input, cs::string &string) {
 
 // [] operator. return character pointed by index or throws std::out_of_range if index is invalid
 char &cs::string::operator[](const size_t index) {
+  CHECK();
   if (index >= m_text_length) {
     throw std::out_of_range("Array index out of range: " + index);
   }
-  CHECK();
   return m_text[index];
 }
 
@@ -358,14 +373,14 @@ size_t string::string_length(const char *str) const {
 // checks that class invariant is holding
 void string::check(int line) const {
   assert(m_text != nullptr,
-    std::string("Class invariant violation: text buffer is null (called from line ") +
-      utility::to_string(line) +")");
+    std::string("Class invariant violation: text buffer is null (called from line ")
+      + utility::to_string(line) +")");
   assert(m_text_length < m_buffer_length,
-    std::string("Class invariant violation: text length is greater than buffer length \
-      (called from line ") + utility::to_string(line) +")");
+    std::string("Class invariant violation: text length is greater than buffer length (called from line ")
+      + utility::to_string(line) +")");
   assert(m_text[m_text_length] == '\0',
-    std::string("Class invariant violation: String is not null terminated \
-      (called from line ") + utility::to_string(line) +")");
+    std::string("Class invariant violation: String is not null terminated (called from line ")
+      + utility::to_string(line) +")");
 }
 
 }

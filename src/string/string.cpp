@@ -127,7 +127,7 @@ string &string::insert(const string::iterator start_position, const string &text
   m_text = new_buffer;
 
   m_text_length = total_length;
-  m_buffer_length = total_length;
+  m_buffer_length = total_length + 1;
 
   assert(string_length(m_text) == total_length, "Invalid text buffer length after insertion");
   CHECK();

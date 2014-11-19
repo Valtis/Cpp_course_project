@@ -273,12 +273,8 @@ char &cs::string::operator[](const size_t index) {
 }
 
 // assignment operator. Copies content of rhs to this string
-cs::string &cs::string::operator=(const cs::string &rhs) {
-  if (this != &rhs) {
-    copy_string(rhs.m_text, rhs.m_text_length);
-    assert(string_length(m_text) == rhs.m_text_length, "Text buffer length invalid after assignment");
-    assert(m_text_length == rhs.m_text_length, "Text length invalid after assignment");
-  }
+cs::string &cs::string::operator=(cs::string rhs) {
+  swap(rhs);
   return *this;
 }
 

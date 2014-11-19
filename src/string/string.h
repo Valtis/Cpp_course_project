@@ -75,7 +75,7 @@ namespace cs {
     char &operator[](const size_t index);
 
     // replaces content of string with contents of rhs
-    cs::string &operator=(const cs::string &rhs);
+    cs::string &operator=(cs::string rhs);
 
     // stream operators
 

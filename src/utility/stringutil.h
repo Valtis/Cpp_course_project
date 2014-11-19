@@ -1,6 +1,6 @@
 #pragma once
 
-// at least mingw 4.8 does not define std::string, so we need to define our own
+// at least mingw 4.8 does not define std::to_string, so we need to define our own
 
 #include <sstream>
 #include <string>

@@ -2,6 +2,7 @@
 #include <stdexcept>
 #include <string>
 
+// exception for test runner; thrown when assertion fails
 class AssertionException : public std::runtime_error {
 public:
 

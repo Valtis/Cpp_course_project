@@ -4,7 +4,7 @@
 undef assert
 #endif
 
-
+// provides assert that throws instead of calling abort. Disabled by defining NDEBUG
 #ifndef NDEBUG
 #include <stdexcept>
 #include <string>

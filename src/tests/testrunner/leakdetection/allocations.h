@@ -10,7 +10,7 @@ enum class AllocationType : int { REGULAR, ARRAY } ;
 class allocations {
 public:
 
-  void add_allocation(const void *addr, const AllocationType type, const size_t bytes, const int line, const char *file);
+  void add_allocation(const void *addr, const AllocationType type, const size_t bytes);
   void remove_allocation(const void *addr, const AllocationType type);
 
   bool has_errors() const;
@@ -21,6 +21,23 @@ public:
 private:
 
   // two maps so we can differentiate between new, new[], delete and delete[]
-  std::map<const void *, size_t, std::less<const void *>, custom_allocator<std::pair<const void *, size_t>>> m_regular_allocations;
-  std::map<const void *, size_t, std::less<const void *>, custom_allocator<std::pair<const void *, size_t>>> m_array_allocations;
+  std::map<const void *,
+           size_t,
+           std::less<const void *>,
+           custom_allocator<std::pair<const void *, size_t>>> m_regular_allocations;
+  std::map<const void *,
+           size_t,
+           std::less<const void *>,
+           custom_allocator<std::pair<const void *, size_t>>> m_array_allocations;
+
+  // catch double deletes
+  std::map<const void *,
+           uint32_t,
+           std::less<const void *>,
+           custom_allocator<std::pair<const void *, uint32_t>>> m_regular_deletes_without_matching_allocations;
+  std::map<const void *,
+           uint32_t,
+           std::less<const void *>,
+           custom_allocator<std::pair<const void *, uint32_t>>> m_array_deletes_without_matching_allocations;
+
 };

@@ -1,8 +1,9 @@
 #include "string.h"
 
-
+#define NDEBUG
 #include "assert.h"
 #include <stdexcept>
+#include <algorithm>
 #define CHECK() check(__LINE__)
 
 namespace cs {
@@ -308,7 +309,7 @@ cs::string &cs::string::operator=(cs::string rhs) {
 
 // increases buffer size but does not copy old buffer to it; optimization in case buffer would be overwritten anyway
 void string::increase_size_no_copy(size_t new_length) {
-  new_length += 1;
+  new_length += 1; // ensure space for null byte
   assert(new_length > m_buffer_length, "New length is shorter or equal to current length!");
   delete [] m_text;
   m_text = new char[new_length];
@@ -317,7 +318,7 @@ void string::increase_size_no_copy(size_t new_length) {
 
 // increases buffer size and copies the old buffer to it
 void string::increase_size(size_t new_length) {
-  new_length += 1;
+  new_length += 1; // ensure space for null byte
 
   assert(new_length > m_buffer_length, "New length is shorter or equal to current length!");
 
@@ -338,7 +339,7 @@ void string::increase_size(size_t new_length) {
 }
 
 
-// copies size chars from str to buffer
+// copies size chars from str to buffer. Resizes buffer if needed
 void string::copy_string(const char *str, size_t size) {
 
   if (m_buffer_length <= size) {

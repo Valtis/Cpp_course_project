@@ -4,9 +4,9 @@
 #include <limits>
 
 /*
-Allocator for std::map in memory allocation tracker. Memory allocation with new or new[] triggers logging which itself
-needs memory allocations when expanding std::map. This will lead to infinite recursion if the standard allocator is not
-replaced with malloc based allocator.
+Allocator for std::map in memory allocation tracker. Memory allocation with new or new[] triggers
+logging which itself needs memory allocations when expanding std::map. This will lead to infinite
+loop if the standard allocator is not replaced with malloc based allocator.
 
 The allocator simply mallocs/frees memory as needed, bypassing the instrumented new/delete.
 */

@@ -1,6 +1,5 @@
 #include "string_test.h"
 #include "testrunner/test.h"
-
 #include "../string/string.h"
 #include <string>
 #include <sstream>
@@ -9,7 +8,7 @@
 
 void new_string_length_is_zero() {
   cs::string str;
-  ASSERT_EQUALS(0u, str.length());
+  ASSERT_EQUALS((size_t)0, str.length());
 }
 
 void new_string_equals_to_empty_string() {
@@ -24,7 +23,7 @@ void string_is_correctly_initialized_with_c_string() {
 
 void string_length_is_correct_when_initialized_with_c_string() {
   cs::string str("hello_world");
-  ASSERT_EQUALS(11u, str.length());
+  ASSERT_EQUALS((size_t)11, str.length());
 }
 
 void string_is_correctly_initialized_with_string() {
@@ -39,7 +38,7 @@ void string_length_is_correct_when_initialized_with_string() {
   cs::string str("hello_world");
   cs::string new_str(str);
 
-  ASSERT_EQUALS(11u, new_str.length());
+  ASSERT_EQUALS((size_t)11, new_str.length());
 }
 
 
@@ -159,7 +158,7 @@ void string_concatenation_works_with_string() {
 
 void string_length_is_correct_after_concatenation() {
   cs::string str("hello ");
-  ASSERT_EQUALS(11u, (str + "world").length());
+  ASSERT_EQUALS((size_t)11, (str + "world").length());
 }
 
 void string_sum_assignment_operator_works_with_c_string() {
@@ -185,7 +184,7 @@ void string_length_is_correct_after_sum_assignment() {
   cs::string str("hello ");
   str += "world";
 
-  ASSERT_EQUALS(11u, str.length());
+  ASSERT_EQUALS((size_t)11, str.length());
 }
 
 
@@ -207,7 +206,7 @@ void string_has_correct_length_after_input_stream() {
   cs::string str;
   std::istringstream input("this is an input test!");
   input >> str;
-  ASSERT_EQUALS(22u, str.length());
+  ASSERT_EQUALS((size_t)22, str.length());
 }
 
 
@@ -368,7 +367,7 @@ void insert_with_iterator_returns_the_string_with_insertion() {
 void text_length_is_correct_after_insertion_with_iterator() {
   cs::string str = "Hello world!";
   str.insert(str.begin(), "Wonderful ");
-  ASSERT_EQUALS(22u, str.length());
+  ASSERT_EQUALS((size_t)22, str.length());
 }
 
 void insert_with_integer_position_works_when_inserting_to_beginning() {
@@ -376,7 +375,7 @@ void insert_with_integer_position_works_when_inserting_to_beginning() {
 
   // both char * and size_t are equally good implicit conversions for (int)0 so we have to specify that we actually want
   // to use the size_t version
-  str.insert(0u, "Wonderful ");
+  str.insert((size_t)0, "Wonderful ");
   ASSERT_EQUALS(cs::string("Wonderful Hello world!"), str);
 }
 
@@ -408,8 +407,8 @@ void insert_with_integer_returns_the_string_with_insertion() {
 
 void text_length_is_correct_after_insertion_with_integer_position() {
   cs::string str = "Hello world!";
-  str.insert(0u, "Wonderful ");
-  ASSERT_EQUALS(22u, str.length());
+  str.insert((size_t)0, "Wonderful ");
+  ASSERT_EQUALS((size_t)22, str.length());
 }
 
 void erase_with_iterator_range_erases_correctly_from_beginning() {
@@ -462,7 +461,7 @@ void erase_with_iterator_range_returns_correct_string_length() {
   cs::string str = "Hello world!";
   str.erase(str.begin() + 2, str.begin() + 9);
 
-  ASSERT_EQUALS(5u, str.length());
+  ASSERT_EQUALS((size_t)5, str.length());
 }
 
 void erase_with_iterator_range_throws_if_start_iterator_is_smaller_than_begin() {
@@ -531,7 +530,7 @@ void erase_with_integers_returns_string_after_erasion() {
 void erase_with_integers_returns_correct_string_length() {
   cs::string str = "Hello world!";
   str.erase(5, str.length());
-  ASSERT_EQUALS(5u, str.length());
+  ASSERT_EQUALS((size_t)5, str.length());
 }
 
 void erase_with_integers_throws_if_start_is_negative() {

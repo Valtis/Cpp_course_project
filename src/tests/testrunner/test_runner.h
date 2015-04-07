@@ -6,10 +6,10 @@
 /*
 Test runner class. Runs registered test cases and reports whether the test passed or not
 */
-class test_runner {
+class test_runner_class {
 public:
 
-  test_runner();
+  test_runner_class();
 
   // registers tests for running. Test must be in form of void function without parameters
   void register_test(const std::string &name, std::function<void()> test);
@@ -32,3 +32,5 @@ private:
   int m_passed_tests;
   int m_failed_tests;
 };
+
+extern test_runner_class test_runner;

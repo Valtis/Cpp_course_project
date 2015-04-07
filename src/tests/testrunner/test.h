@@ -4,8 +4,20 @@
 #include "exceptions.h"
 #include "../../utility/stringutil.h"
 
-// helper macro
-#define REGISTER_TEST(runner, x) runner.register_test(#x, (x));
+
+
+// helper macros
+
+#define RUN_TESTS() test_runner.run_tests()
+#define TEST(test_name) class TEST_CLASS_ ## test_name  {                \
+  public:                                                                         \
+    TEST_CLASS_ ## test_name () {  \
+      test_runner.register_test(#test_name, [=]() { test(); });                   \
+    }                                                                             \
+                                                                                  \
+  void test();                                                                    \
+} test_instance ## test_name;                                             \
+ void TEST_CLASS_ ## test_name :: test()                                      \
 
 // Test macros
 #define ASSERT_EQUALS(expected, actual) assert_equality((expected), (actual), __LINE__, __FILE__)

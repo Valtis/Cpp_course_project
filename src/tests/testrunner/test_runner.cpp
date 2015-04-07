@@ -3,16 +3,18 @@
 #include "exceptions.h"
 #include "leakdetection/memory_instrumentation.h"
 
-test_runner::test_runner() : m_passed_tests(0), m_failed_tests(0) {
+test_runner_class test_runner;
+
+test_runner_class::test_runner_class() : m_passed_tests(0), m_failed_tests(0) {
 
 }
 
-void test_runner::register_test(const std::string &name, std::function<void()> test) {
+void test_runner_class::register_test(const std::string &name, std::function<void()> test) {
   m_test_cases.push_back({ name, test });
 }
 
 
-void test_runner::run_tests() {
+void test_runner_class::run_tests() {
   std::cout << "\nRunning tests...\n\n";
 
   for (const test_case &test : m_test_cases) {
@@ -23,7 +25,7 @@ void test_runner::run_tests() {
 }
 
 
-void test_runner::handle_test_case(const test_case &test) {
+void test_runner_class::handle_test_case(const test_case &test) {
   bool passing = false;
 
   auto allocations = get_allocations_list();
